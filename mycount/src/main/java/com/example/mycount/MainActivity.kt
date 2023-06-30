@@ -10,37 +10,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.mycount.databinding.ActivityMainBinding
 import com.example.mycount.ui.theme.AndKotTheme
 
 class MainActivity : ComponentActivity() {
+    var count = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            AndKotTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.countButton.setOnClickListener {
+            count++
+            binding.countText.text = "$count"
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AndKotTheme {
-        Greeting("Android")
+        binding.countButton2.setOnClickListener {
+            count--
+            binding.countText.text = "$count"
+        }
+        binding.resetButton.setOnClickListener {
+            count = 0
+            binding.countText.text = "$count"
+        }
     }
 }
